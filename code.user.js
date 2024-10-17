@@ -2150,7 +2150,7 @@
                     {
                         Guidepost.twir_show = Guidepost.twir_show || Guidepost.show;
                         var FOver = Guidepost.twir_show.toString();
-                        FOver = FOver.replace(/if\(type\=\='fort'\)/, "if(type=='employer'){msg=Map.Component.Quest.prototype.getTitle(); if(TWIR.NPCList.getFromList(id)) msg+=': ' + TWIR.NPCList.getFromList(id).name;} $&"), FOver = FOver.replace(/Guidepost\.start_walk\(id,type\);/, "if(type=='employer'){return QuestEmployerWindow.twir_startWalk({key:id,x:x,y:y}), QuestEmployerWindow.showEmployer(id, x, y)} $&"), FOver = FOver.replace(/\.addButton\('cancel'\)/, ".addButton(TWIR_lang.calc.switch_speed_btn,function(){TWIR.DressUpNwalk(id,x,y,type);})$&"), eval("Guidepost.show = " + FOver), QuestEmployerWindow.twir_startWalk = QuestEmployerWindow.twir_startWalk || QuestEmployerWindow.startWalk, QuestEmployerWindow.startWalk = function(e)
+                        FOver = FOver.replace(/if\(type\=\='fort'\)/, "if(type=='employer'){msg=GameMap.Component.Quest.prototype.getTitle(); if(TWIR.NPCList.getFromList(id)) msg+=': ' + TWIR.NPCList.getFromList(id).name;} $&"), FOver = FOver.replace(/Guidepost\.start_walk\(id,type\);/, "if(type=='employer'){return QuestEmployerWindow.twir_startWalk({key:id,x:x,y:y}), QuestEmployerWindow.showEmployer(id, x, y)} $&"), FOver = FOver.replace(/\.addButton\('cancel'\)/, ".addButton(TWIR_lang.calc.switch_speed_btn,function(){TWIR.DressUpNwalk(id,x,y,type);})$&"), eval("Guidepost.show = " + FOver), QuestEmployerWindow.twir_startWalk = QuestEmployerWindow.twir_startWalk || QuestEmployerWindow.startWalk, QuestEmployerWindow.startWalk = function(e)
                         {
                             if (!this.window || !$(this.window.divMain)
                                 .is(":visible")) return this.twir_startWalk.apply(this, arguments);
@@ -2652,7 +2652,7 @@
                                     })
                                     .click(function()
                                     {
-                                        Map.center(Character.getPosition()
+                                        GameMap.center(Character.getPosition()
                                             .x, Character.getPosition()
                                             .y)
                                     }) : $([])
@@ -2662,7 +2662,7 @@
                                 {
                                     var n = e[r],
                                         o = {};
-                                    (o = AllianceWindow.twir_calcCoord4Worldmap([n.x, n.y])) && a.push($('<img onclick="javascript:void(Map.center(' + n.x + "," + n.y + '))" title="' + n.name + '" src="/images/map/minimap/icons/miniicon_alliance_' + t + '.png" class="mmap_wmappoint" style="cursor: pointer;" />')
+                                    (o = AllianceWindow.twir_calcCoord4Worldmap([n.x, n.y])) && a.push($('<img onclick="javascript:void(GameMap.center(' + n.x + "," + n.y + '))" title="' + n.name + '" src="/images/map/minimap/icons/miniicon_alliance_' + t + '.png" class="mmap_wmappoint" style="cursor: pointer;" />')
                                         .css(
                                         {
                                             left: o.x + i.left + "px",
@@ -4126,9 +4126,9 @@
                             }, e, t, i, 100, r, !0)
                         };
                         /*! Job popup */
-                        Map.PopupHandler.twir_getJobPopup = Map.PopupHandler.twir_getJobPopup || Map.PopupHandler.getJobPopup, Map.PopupHandler.getJobPopup = function(e)
+                        GameMap.PopupHandler.twir_getJobPopup = GameMap.PopupHandler.twir_getJobPopup || GameMap.PopupHandler.getJobPopup, GameMap.PopupHandler.getJobPopup = function(e)
                             {
-                                var i = Map.PopupHandler.twir_getJobPopup.apply(this, arguments);
+                                var i = GameMap.PopupHandler.twir_getJobPopup.apply(this, arguments);
                                 try
                                 {
                                     if (JobsModel.Beans[e.id] && TWIR.Features.get("pop_job_tooltip"))
@@ -4167,7 +4167,7 @@
                                 }
                                 catch (e)
                                 {
-                                    TWIR.error(e, "Map.PopupHandler.getJobPopup")
+                                    TWIR.error(e, "GameMap.PopupHandler.getJobPopup")
                                 }
                                 return i
                             },
@@ -5163,7 +5163,7 @@
                                 for (var r = a.msg.search_result, n = 0; n < r.length; n++)
                                     if (r[n].auction_ends_in <= 0 || !isNaN(parseInt(r[n].max_price)) && r[n].current_bid == parseInt(r[n].max_price))
                                     {
-                                        var o = Map.calcWayTime(TWIR.Util.lastPos(),
+                                        var o = GameMap.calcWayTime(TWIR.Util.lastPos(),
                                         {
                                             x: r[n].market_town_x,
                                             y: r[n].market_town_y
@@ -5195,7 +5195,7 @@
                                     for (var r = a.msg.search_result, n = 0; n < r.length; n++)
                                         if (r[n].auction_ends_in <= 0 || !isNaN(parseInt(r[n].max_price)) && r[n].current_bid == parseInt(r[n].max_price))
                                         {
-                                            var o = Map.calcWayTime(TWIR.Util.lastPos(),
+                                            var o = GameMap.calcWayTime(TWIR.Util.lastPos(),
                                                 {
                                                     x: r[n].market_town_x,
                                                     y: r[n].market_town_y
@@ -5332,7 +5332,7 @@
                                         Guidepost.show(e[1].id, e[1].posx, e[1].posy, "town");
                                         break;
                                     case 2:
-                                        Map.center(e[1].posx, e[1].posy);
+                                        GameMap.center(e[1].posx, e[1].posy);
                                         break;
                                     case 1:
                                         var t = Object.values(e[1].items)
@@ -5505,7 +5505,7 @@
                                         TWIR.MarketMap.show();
                                         break;
                                     case 0:
-                                        Map.center(t.posx, t.posy);
+                                        GameMap.center(t.posx, t.posy);
                                         var i = Object.values(t.items),
                                             a = i.filter(function(e)
                                             {
@@ -5596,7 +5596,7 @@
                             {
                                 selectbox.addEmpty(), $.each(data, function(e, t)
                                 {
-                                    t.distance = Map.calcWayTime(TWIR.Util.lastPos(),
+                                    t.distance = GameMap.calcWayTime(TWIR.Util.lastPos(),
                                     {
                                         x: t.posx,
                                         y: t.posy
@@ -5620,7 +5620,7 @@
                             {
                                 $.each(list, function(e, t)
                                 {
-                                    t.distance = Map.calcWayTime(TWIR.Util.lastPos(),
+                                    t.distance = GameMap.calcWayTime(TWIR.Util.lastPos(),
                                     {
                                         x: t.posx,
                                         y: t.posy
@@ -5679,7 +5679,7 @@
                                                 {
                                                     return function()
                                                     {
-                                                        Map.center(e.posx, e.posy), "town" === e.type ? HotelWindow.open(e.id) : "fort" === e.type && FortBarracksWindow.open(e.id), selectbox.hide()
+                                                        GameMap.center(e.posx, e.posy), "town" === e.type ? HotelWindow.open(e.id) : "fort" === e.type && FortBarracksWindow.open(e.id), selectbox.hide()
                                                     }
                                                 }(i))
                                                 .after($('<li><span style="color: #7b5538; margin-left: 20px;">&#8618; ' + TWIR_lang.informative.distance + ":&nbsp;" + i.distance.formatDuration() + "</span></li>")
@@ -5768,7 +5768,7 @@
                                 .show();
                             var i = [],
                                 a = t.quest_locations;
-                            for (var r in a) a[r] && a[r][0] && i.push([parseInt(a[r][0][0] / Map.tileSize), parseInt(a[r][0][1] / Map.tileSize)]);
+                            for (var r in a) a[r] && a[r][0] && i.push([parseInt(a[r][0][0] / GameMap.tileSize), parseInt(a[r][0][1] / GameMap.tileSize)]);
                             Ajax.get("map", "get_complete_data",
                             {
                                 tiles: JSON.stringify(i)
@@ -5817,7 +5817,7 @@
                                 .setWidth(300);
                             $.each(t, function(e, t)
                             {
-                                t.distance = Map.calcWayTime(TWIR.Util.lastPos(),
+                                t.distance = GameMap.calcWayTime(TWIR.Util.lastPos(),
                                 {
                                     x: t.posx,
                                     y: t.posy
@@ -5837,7 +5837,7 @@
                                 switch (e[1])
                                 {
                                     case 0:
-                                        Map.center(t.posx, t.posy), QuestEmployerWindow.showEmployer(t.key, t.posx, t.posy);
+                                        GameMap.center(t.posx, t.posy), QuestEmployerWindow.showEmployer(t.key, t.posx, t.posy);
                                         break;
                                     case 1:
                                         Guidepost.show(t.key, t.posx, t.posy, "employer")
